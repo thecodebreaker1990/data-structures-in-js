@@ -11,6 +11,10 @@ class SinglyLinkedList {
         this.tail = null;
         this.length = 0;
     }
+     /**
+     * @param {*} val
+     * @return {SinglyLinkedList}
+     */
     push(val) {
         const newNode = new Node(val);
         //Check if this node is the first element in the linkedList
@@ -31,6 +35,9 @@ class SinglyLinkedList {
             current = current.next;
         }
     }
+    /**
+     * @return {Node}
+     */
     pop() {
         if(!this.head) return undefined;
         var current = this.head;
@@ -48,6 +55,9 @@ class SinglyLinkedList {
         }
         return current;
     }
+    /**
+     * @return {Node}
+     */
     shift() {
         if(!this.head) return undefined;
         var currentHead = this.head;
@@ -57,6 +67,10 @@ class SinglyLinkedList {
         currentHead.next = null;
         return currentHead;
     }
+    /**
+     * @param {*} val
+     * @return {SinglyLinkedList}
+     */
     unshift(val) {
         var newNode = new Node(val);
         if(!this.head) {
@@ -69,6 +83,20 @@ class SinglyLinkedList {
         this.length++;
         return this;
     }
+    /**
+     * @param {*} index
+     * @return {Node}
+     */
+    get(index) {
+        if(index < 0 || index >= this.length) return null;
+        var counter = 0;
+        var current = this.head
+        while(counter !== index) {
+            current = current.next;
+            counter++;
+        }
+        return current;
+    }
 }
 
 const linkedList = new SinglyLinkedList();
@@ -79,3 +107,4 @@ linkedList.push("Are");
 linkedList.push("You");
 linkedList.push("?");
 console.log(linkedList.unshift("Folks"));
+console.log(linkedList.get(2));

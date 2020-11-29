@@ -131,7 +131,7 @@ class SinglyLinkedList {
      * @return {Boolean}
      */
     remove(index) {
-        if(index < 0 && index >= this.length) return false;
+        if(index < 0 && index >= this.length) return undefined;
         if(index === 0) return this.shift();
         else if(index === this.length - 1) return this.pop();
         else {
@@ -142,6 +142,18 @@ class SinglyLinkedList {
             this.length--;
             return removedNode;
         }
+    }
+    reverse() {
+        var current = this.head, prev = null, next = null;
+        while(current) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        this.tail = this.head;
+        this.head = prev;
+        return this;
     }
 }
 
@@ -156,3 +168,4 @@ console.log(linkedList.unshift("Folks"));
 linkedList.set(0, "Ladies & gentleman");
 console.log(linkedList.insert(6, 'doing'));
 console.log(linkedList.remove(2), linkedList);
+linkedList.reverse(); console.log(linkedList);

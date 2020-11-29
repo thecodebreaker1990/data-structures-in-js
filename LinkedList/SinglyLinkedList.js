@@ -97,6 +97,52 @@ class SinglyLinkedList {
         }
         return current;
     }
+    /**
+     * @param {*} index
+     * @param {*} value
+     * @return {Boolean}
+     */
+    set(index, value) {
+        var node = this.get(index);
+        if(!node) return false;
+        node.value = value;
+        return true;
+    }
+     /**
+     * @param {*} index
+     * @param {*} value
+     * @return {Boolean}
+     */
+    insert(index, value) {
+        if(index < 0 && index > this.length) return false;
+        if(index === 0) return !!this.unshift(value);
+        else if(index === this.length) return !!this.push(value);
+        else {
+            var previousNode = this.get(index - 1);
+            var newNode = new Node(value);
+            newNode.next = previousNode.next;
+            previousNode.next = newNode;
+            this.length++;
+            return true;
+        }
+    }
+     /**
+     * @param {*} index
+     * @return {Boolean}
+     */
+    remove(index) {
+        if(index < 0 && index >= this.length) return false;
+        if(index === 0) return this.shift();
+        else if(index === this.length - 1) return this.pop();
+        else {
+            var previousNode = this.get(index - 1);
+            var removedNode = previousNode.next;
+            previousNode.next = removedNode.next;
+            removedNode.next = null;
+            this.length--;
+            return removedNode;
+        }
+    }
 }
 
 const linkedList = new SinglyLinkedList();
@@ -107,4 +153,6 @@ linkedList.push("Are");
 linkedList.push("You");
 linkedList.push("?");
 console.log(linkedList.unshift("Folks"));
-console.log(linkedList.get(2));
+linkedList.set(0, "Ladies & gentleman");
+console.log(linkedList.insert(6, 'doing'));
+console.log(linkedList.remove(2), linkedList);

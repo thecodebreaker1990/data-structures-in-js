@@ -143,6 +143,9 @@ class SinglyLinkedList {
             return removedNode;
         }
     }
+    /**
+     * @return {SinglyLinkedList}
+     */
     reverse() {
         var current = this.head, prev = null, next = null;
         while(current) {

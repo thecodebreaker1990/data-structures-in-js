@@ -115,6 +115,60 @@ class DoublyLinkedList {
         }
         return false;
     }
+     /**
+     * @param {*} index
+     * * @param {*} val
+     * @return {DoublyLinkedList}
+     */
+    insert(index, val) {
+        if(index < 0 && index > this.length) return false;
+        if(index === 0) return !!this.unshift(val);
+        else if(index === this.length) return !!this.push(val);
+        else {
+            var pre = this.get(index - 1);
+            var aft = pre.next;
+            var newNode = new Node(val);
+            newNode.next = aft; aft.prev = newNode;
+            pre.next = newNode; newNode.prev = pre;
+            this.length++;
+            return true;
+        }
+    }
+    /**
+     * @param {*} index
+     * @return {Node}
+     */
+    remove(index) {
+        if(index < 0 && index >= this.length) return undefined;
+        if(index === 0) return this.shift();
+        else if(index === this.length - 1) return this.pop();
+        else {
+            var poppedNode = this.get(index);
+            var previousNode = poppedNode.prev;
+            var afterNode = poppedNode.next;
+            previousNode.next = afterNode;
+            afterNode.prev = previousNode;
+            poppedNode.prev = null; poppedNode.next = null;
+            this.length--;
+            return poppedNode; 
+        }
+    }
+     /**
+     * @return {DoublyLinkedList}
+     */
+    reverse() {
+        var current = this.head, prev = null, next;
+        while(current) {
+            next = current.next;
+            current.prev = next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        this.tail = this.head;
+        this.head = prev;
+        return this;
+    }
 }
 
 const linkedList = new DoublyLinkedList();
@@ -123,8 +177,5 @@ linkedList.push(27);
 linkedList.push(72);
 linkedList.push(31);
 linkedList.push(56);
-linkedList.push(10);
-linkedList.push(100);
-console.log(linkedList.get(6));
-linkedList.set(6, 150);
-console.log(linkedList);
+linkedList.insert(5, 200);
+console.log(linkedList.reverse());

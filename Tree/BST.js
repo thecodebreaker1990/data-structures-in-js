@@ -10,24 +10,42 @@ class BinarySearchTree {
     constructor() {
         this.root = null;
     }
+    /**
+     * @param {*} value
+     * @return {BinarySearchTree}
+     */
     insert(value) {
         const newNode = new Node(value);
         if(!this.root) {
             this.root = newNode;
             return this;
         }
-        function insertRecursiveHelper(node, newNode) {
+        function recursiveInsertHelper(node, newNode) {
             if(newNode.value >= node.value) {
-                if(node.right) return insertRecursiveHelper(node.right, newNode);
+                if(node.right) return recursiveInsertHelper(node.right, newNode);
                 node.right = newNode; 
                 return this;
             } else {
-                if(node.left) return insertRecursiveHelper(node.left, newNode);
+                if(node.left) return recursiveInsertHelper(node.left, newNode);
                 node.left = newNode; 
                 return this;    
             }
         }
-        return insertRecursiveHelper(this.root, newNode);
+        return recursiveInsertHelper(this.root, newNode);
+    }
+    /**
+     * @param {*} value
+     * @return {Null | Node}
+     */
+    search(value) {
+        if(!this.root) return null;
+        function recusriveSearchHelper(node, value) {
+            if(node === null) return null;
+            else if(node.value === value) return node;
+            else if(value < node.value) return recusriveSearchHelper(node.left, value);
+            else return recusriveSearchHelper(node.right, value);
+        }
+        return recusriveSearchHelper(this.root, value);
     }
 }
 
@@ -38,3 +56,4 @@ tree.insert(7);
 tree.insert(18);
 tree.insert(9);
 console.log(tree);
+console.log(tree.search(15));

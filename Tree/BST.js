@@ -47,6 +47,21 @@ class BinarySearchTree {
         }
         return recusriveSearchHelper(this.root, value);
     }
+    /**
+     * @return {Node[]}
+     */
+    bfs() {
+        var queue = [], visited = [], node;
+        if(!this.root) return visited;
+        queue.push(this.root);
+        while(queue.length > 0) {
+            node = queue.shift();
+            visited.push(node.value);
+            if(node.left) queue.push(node.left);
+            if(node.right) queue.push(node.right);
+        }
+        return visited;
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -57,3 +72,4 @@ tree.insert(18);
 tree.insert(9);
 console.log(tree);
 console.log(tree.search(15));
+console.log(tree.bfs());

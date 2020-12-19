@@ -48,7 +48,7 @@ class BinarySearchTree {
         return recusriveSearchHelper(this.root, value);
     }
     /**
-     * @return {Node[]}
+     * @return {Number[]}
      */
     BFS() {
         var queue = [], visited = [], node;
@@ -63,7 +63,7 @@ class BinarySearchTree {
         return visited;
     }
     /**
-     * @return {Node[]}
+     * @return {Number[]}
      */
     DFSPreOrder() {
         var visited = [];
@@ -78,7 +78,7 @@ class BinarySearchTree {
         return visited;
     }
     /**
-     * @return {Node[]}
+     * @return {Number[]}
      */
     DFSPostOrder() {
         var visited = [];
@@ -93,7 +93,7 @@ class BinarySearchTree {
         return visited;
     }
     /**
-     * @return {Node[]}
+     * @return {Number[]}
      */
     DFSInOrder() {
         var visited = [];
@@ -107,6 +107,25 @@ class BinarySearchTree {
         traverse(current);
         return visited;
     }
+    /**
+     * @return {Number[][]}
+     */
+    levelOrder() {
+        var current = this.root;
+        if(!current) return [];
+        var visited = [];
+        function traverse(node, level) {
+            if(visited.length < level) {
+                visited.push([]);
+            }
+            visited[level - 1].push(node.value);
+            if(node.left) traverse(node.left, level + 1);
+            if(node.right) traverse(node.right, level + 1);
+            return;
+        }
+        traverse(current, 1);
+        return visited;
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -115,7 +134,10 @@ tree.insert(15);
 tree.insert(7);
 tree.insert(18);
 tree.insert(9);
+tree.insert(5);
+tree.insert(12);
 console.log(tree);
-console.log(tree.DFSPreOrder());
-console.log(tree.DFSPostOrder());
-console.log(tree.DFSInOrder());
+// console.log(tree.DFSPreOrder());
+// console.log(tree.DFSPostOrder());
+// console.log(tree.DFSInOrder());
+console.log(tree.levelOrder());

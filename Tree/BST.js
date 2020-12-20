@@ -145,21 +145,15 @@ class BinarySearchTree {
         return inorder(current);
     }
     /**
-     * @param {*} BinarySearchTree
-     * @param {*} BinarySearchTree
+     * @param {*} Node
+     * @param {*} Node
      * @return {Boolean}
      */
     static isSameTree(p, q) {
-        if(!p.root || !q.root) return false;
-        function traverse(node1, node2) {
-            if(node1 !== null && node2 !== null && node1.value === node2.value)
-                return traverse(node1.left, node2.left) && traverse(node1.right, node2.right);
-            else if(node1 === null && node2 === null)
-                return true;
-            else    
-                return false
-        }
-        return traverse(p.root, q.root);
+        if(!p && !q) return true; 
+        if(!p || !q) return false;
+        if(p.val !== q.val) return false;
+        return this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);
     }
 }
 
@@ -182,6 +176,6 @@ tree2.insert(5);
 tree2.insert(12);
 
 console.log(tree1, tree2);
-console.log(BinarySearchTree.isSameTree(tree1, tree2));
+console.log(BinarySearchTree.isSameTree(tree1.root, tree2.root));
 // console.log(tree.levelOrder());
 // console.log(tree.isValidBST());

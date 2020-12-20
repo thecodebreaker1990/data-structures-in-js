@@ -144,16 +144,44 @@ class BinarySearchTree {
         }
         return inorder(current);
     }
+    /**
+     * @param {*} BinarySearchTree
+     * @param {*} BinarySearchTree
+     * @return {Boolean}
+     */
+    static isSameTree(p, q) {
+        if(!p.root || !q.root) return false;
+        function traverse(node1, node2) {
+            if(node1 !== null && node2 !== null && node1.value === node2.value)
+                return traverse(node1.left, node2.left) && traverse(node1.right, node2.right);
+            else if(node1 === null && node2 === null)
+                return true;
+            else    
+                return false
+        }
+        return traverse(p.root, q.root);
+    }
 }
 
-const tree = new BinarySearchTree();
-tree.insert(10);
-tree.insert(15);
-tree.insert(7);
-tree.insert(18);
-tree.insert(9);
-tree.insert(5);
-tree.insert(12);
-console.log(tree);
-console.log(tree.levelOrder());
-console.log(tree.isValidBST());
+const tree1 = new BinarySearchTree();
+const tree2 = new BinarySearchTree();
+tree1.insert(10);
+tree1.insert(15);
+tree1.insert(7);
+tree1.insert(18);
+tree1.insert(9);
+tree1.insert(5);
+tree1.insert(12);
+
+tree2.insert(10);
+tree2.insert(15);
+tree2.insert(7);
+tree2.insert(18);
+tree2.insert(9);
+tree2.insert(5);
+tree2.insert(12);
+
+console.log(tree1, tree2);
+console.log(BinarySearchTree.isSameTree(tree1, tree2));
+// console.log(tree.levelOrder());
+// console.log(tree.isValidBST());

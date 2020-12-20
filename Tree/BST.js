@@ -126,6 +126,24 @@ class BinarySearchTree {
         traverse(current, 1);
         return visited;
     }
+    /**
+     * @return {Boolean}
+     */
+    isValidBST() {
+        var current = this.root;
+        if(!current) return false;
+        var lastVisited = null;
+        function inorder(node) {
+            if(node === null) return true;
+            if(!inorder(node.left)) return false;
+            if(lastVisited !== null && node.value <= lastVisited) {
+                return false;
+            }
+            lastVisited = node.value;
+            return inorder(node.right);
+        }
+        return inorder(current);
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -137,7 +155,5 @@ tree.insert(9);
 tree.insert(5);
 tree.insert(12);
 console.log(tree);
-// console.log(tree.DFSPreOrder());
-// console.log(tree.DFSPostOrder());
-// console.log(tree.DFSInOrder());
 console.log(tree.levelOrder());
+console.log(tree.isValidBST());

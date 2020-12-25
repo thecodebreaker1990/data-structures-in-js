@@ -158,6 +158,20 @@ class SinglyLinkedList {
         this.head = prev;
         return this;
     }
+    /**
+     * @return {SinglyLinkedList}
+     */
+    swapPairs() {
+        var current = this.head;
+        function swapRecursiveHelper(node) {
+            if(!node || !node.next) return node;
+            var newHead = node.next;
+            node.next = swapRecursiveHelper(after);
+            newHead.next = node;
+            return newHead;
+        }
+        return swapRecursiveHelper(current);
+    }
 }
 
 const linkedList = new SinglyLinkedList();

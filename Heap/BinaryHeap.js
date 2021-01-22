@@ -63,5 +63,5 @@ class MaxBinaryHeap {
 }
 
 const heap = new MaxBinaryHeap();
-heap.insert(41).insert(39).insert(33).insert(18).insert(27).insert(12).insert(55);
-console.log(heap.extractMax(),heap.extractMax(), heap);
+heap.insert(1).insert(3).insert(-1).insert(-3).insert(5).insert(3).insert(6).insert(7);
+console.log(heap);

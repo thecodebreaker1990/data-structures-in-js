@@ -2,6 +2,33 @@ class MaxBinaryHeap {
     constructor() {
         this.values = [];
     }
+    build_max_heap(arr) {
+        const midIndex = Math.floor(arr.length / 2);
+        for(let i = midIndex; i >= 0 ; i--) {
+            this.max_heapify(arr, i)
+        }
+        this.values = arr;
+    }
+    max_heapify(arr, i) {
+        const element = arr[i];
+        const leftIdx = 2 * i + 1, rightIdx = 2 * i + 2;
+        let swap = null;
+        let leftChild = -Infinity, rightChild = -Infinity;
+        if(leftIdx < arr.length) {
+            leftChild = arr[leftIdx];
+            if(leftChild > element) swap = leftIdx;
+        }
+        if(rightIdx < arr.length) {
+            rightChild = arr[rightIdx];
+            if(rightChild > element && rightChild > leftChild) swap = rightIdx;
+        }
+        if(swap === null) return;
+        if(swap !== null) {
+            arr[i] = arr[swap];
+            arr[swap] = element;
+            this.max_heapify(arr, swap);
+        }
+    }
     insert(value) {
         this.values.push(value);
         this.bubbleUp();
@@ -62,6 +89,7 @@ class MaxBinaryHeap {
     }
 }
 
+const arr = [...Array(10)].map(el => Math.floor(Math.random() * 100) + 1);
 const heap = new MaxBinaryHeap();
-heap.insert(1).insert(3).insert(-1).insert(-3).insert(5).insert(3).insert(6).insert(7);
-console.log(heap);
+heap.build_max_heap(arr);
+console.log(heap.extractMax());

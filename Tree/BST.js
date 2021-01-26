@@ -107,6 +107,20 @@ class BinarySearchTree {
         traverse(current);
         return visited;
     }
+    DFSInOrderIterative() {
+        var visited = [], current = this.root;
+        var stack = [];
+        while(current !== null || stack.length !== 0) {
+            while(current !== null) {
+                stack.push(current);
+                current = current.left;
+            }
+            current = stack.pop();
+            visited.push(current.value);
+            current = current.right;
+        }
+        return visited;
+    }
     /**
      * @return {Number[][]}
      */

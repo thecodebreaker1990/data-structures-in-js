@@ -159,6 +159,25 @@ class BinarySearchTree {
         return inorder(current);
     }
     /**
+     * @param {*} BST
+     * @return {Number[]}
+     */
+    getRightSideView(root) {
+        const result = [];
+        if(!root) return result;
+        const queue = [root];
+        while(queue.length) {
+            var len = queue.length;
+            for(let i = 0; i < len; i++) {
+                var nextNode = queue.shift();
+                if(i === len - 1) result.push(nextNode.value);
+                if(nextNode.left) queue.push(nextNode.left);
+                if(nextNode.right) queue.push(nextNode.right);
+            }
+        }
+        return result;
+    }
+    /**
      * @param {*} Node
      * @param {*} Node
      * @return {Boolean}
@@ -191,5 +210,4 @@ tree2.insert(12);
 
 console.log(tree1, tree2);
 console.log(BinarySearchTree.isSameTree(tree1.root, tree2.root));
-// console.log(tree.levelOrder());
-// console.log(tree.isValidBST());
+console.log(BinarySearchTree.getRightSideView(tree1));

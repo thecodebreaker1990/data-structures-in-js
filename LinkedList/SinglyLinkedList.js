@@ -166,23 +166,49 @@ class SinglyLinkedList {
         function swapRecursiveHelper(node) {
             if(!node || !node.next) return node;
             var newHead = node.next;
-            node.next = swapRecursiveHelper(after);
+            node.next = swapRecursiveHelper(newHead);
             newHead.next = node;
             return newHead;
         }
         return swapRecursiveHelper(current);
     }
+    /**
+     * @return {SinglyLinkedList}
+     */
+    /**
+        1. Initialise a temp & newHead variable pointing at current head
+
+        2. Create a prev node by passing a value -1
+
+        3. Run a loop until end of list - Check if node pointed by temp and value to be removed are same
+            3.1 If yes - 
+                i. check if prev is still -1, then we need to remove first node. so update newHead by temp.next
+                ii. if not then updated prev.next by temp.next
+            
+            3.2 If no - then update prev by temp
+
+            3.3 Update temp by temp.next
+
+        4. return newHead
+    */
+    removeElement(element) {
+        var current = this.head;
+        var prev = new Node(-1);
+        while(current) {
+            if(element === current.value) {
+                if(prev.value === -1) this.head = current.next;
+                else prev.next = current.next;
+                this.length--;
+            } else {
+                prev = current;
+            }
+            current = current.next;
+        }
+        return this;
+    }
 }
 
 const linkedList = new SinglyLinkedList();
-linkedList.push("Hello");
-linkedList.push("There");
-linkedList.push("How");
-linkedList.push("Are");
-linkedList.push("You");
-linkedList.push("?");
-console.log(linkedList.unshift("Folks"));
-linkedList.set(0, "Ladies & gentleman");
-console.log(linkedList.insert(6, 'doing'));
-console.log(linkedList.remove(2), linkedList);
-linkedList.reverse(); console.log(linkedList);
+linkedList.push(1).push(2).push(6).push(3).push(4).push(5).push(6);
+linkedList.removeElement(6)
+linkedList.traverse();

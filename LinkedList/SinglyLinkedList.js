@@ -176,7 +176,7 @@ class SinglyLinkedList {
      * @return {SinglyLinkedList}
      */
     /**
-        1. Initialise a temp & newHead variable pointing at current head
+        1. Initialise a temp variable pointing at current head
 
         2. Create a prev node by passing a value -1
 
@@ -189,7 +189,7 @@ class SinglyLinkedList {
 
             3.3 Update temp by temp.next
 
-        4. return newHead
+        4. return this
     */
     removeElement(element) {
         var current = this.head;

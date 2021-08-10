@@ -161,6 +161,39 @@ class SinglyLinkedList {
     /**
      * @return {SinglyLinkedList}
      */
+    reverseBetween(left, right) {
+        var current = this.head, prev = null;
+        
+        //Move two pointers prev, current in their correct places
+        while(left > 1) {
+            prev = current;
+            current = current.next;
+            left--; right--;
+        }
+
+        //Store pointers in new variables
+        var newHeadBefore = prev, newTailAfter = current;
+        
+        //reverse links in between left to right range
+        while(right > 0) {
+            var next = current.next;
+            current.next = prev;
+            prev = current; current = next;
+            right--;
+        }
+
+        if(newHeadBefore !== null) {
+            newHeadBefore.next = prev;
+        } else {
+            this.head = prev;
+        }
+        newTailAfter.next = current;
+
+        return this.head;
+    }
+    /**
+     * @return {SinglyLinkedList}
+     */
     swapPairs() {
         var current = this.head;
         function swapRecursiveHelper(node) {
@@ -176,7 +209,7 @@ class SinglyLinkedList {
      * @return {SinglyLinkedList}
      */
     /**
-        1. Initialise a temp & newHead variable pointing at current head
+        1. Initialise a temp variable pointing at current head
 
         2. Create a prev node by passing a value -1
 
@@ -189,15 +222,16 @@ class SinglyLinkedList {
 
             3.3 Update temp by temp.next
 
-        4. return newHead
+        4. return this
     */
     removeElement(element) {
         var current = this.head;
         var prev = new Node(-1);
         while(current) {
             if(element === current.value) {
-                if(prev.value === -1) this.head = current.next;
+                if(prev.value === -1) this.head = current.next; //update head
                 else prev.next = current.next;
+                if(current.next === null) this.tail = prev; //update tail
                 this.length--;
             } else {
                 prev = current;
@@ -210,5 +244,5 @@ class SinglyLinkedList {
 
 const linkedList = new SinglyLinkedList();
 linkedList.push(1).push(2).push(6).push(3).push(4).push(5).push(6);
-linkedList.removeElement(6)
 linkedList.traverse();
+linkedList.reverseBetween(2, 4);

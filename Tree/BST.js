@@ -140,6 +140,31 @@ class BinarySearchTree {
         traverse(current, 1);
         return visited;
     }
+    zigzagLevelOrder() {
+        var current = this.root;
+        if(!current) return [];
+        const [res, queue] = [ 
+            [[current.value]], [current] 
+        ];
+        let reversed = true;
+        while(queue.length) {
+            const [level, { length }] = [[], queue];
+            for(let i = 0; i < length; i++) {
+                const current = queue.shift();
+                if(current.left) {
+                    queue.push(current.left);
+                    level.push(current.left.value)
+                }
+                if(current.right) {
+                    queue.push(current.right);
+                    level.push(current.right.value)
+                }
+            }
+            level.length && res.push(reversed ? level.reverse() : level);
+            reversed = !reversed;
+        }
+        return res;
+    }
     /**
      * @return {Boolean}
      */
@@ -162,7 +187,7 @@ class BinarySearchTree {
      * @param {*} BST
      * @return {Number[]}
      */
-    getRightSideView(root) {
+    static getRightSideView(root) {
         const result = [];
         if(!root) return result;
         const queue = [root];
